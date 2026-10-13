@@ -198,13 +198,14 @@
             <div class="game-nav-bar">
                 <button type="button" class="back-btn" id="back-btn">← Back to Launcher</button>
                 <div class="game-title-indicator" id="active-game-title"></div>
+                <button type="button" class="back-btn" id="newtab-btn">Open in new tab ↗</button>
             </div>
             <div class="iframe-container-wrapper">
                 <div class="iframe-wrapper">
                     <iframe id="game-frame" src="about:blank" title="Game"
                             allowfullscreen
-                            allow="fullscreen; autoplay; gamepad"
-                            sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms allow-modals allow-popups allow-downloads"></iframe>
+                            allow="fullscreen"
+                            sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms"></iframe>
                 </div>
             </div>
         </div>
@@ -220,7 +221,10 @@
         const gameFrame = document.getElementById('game-frame');
         const titleIndicator = document.getElementById('active-game-title');
 
+        let currentUrl = '';
+
         function loadGame(url, title) {
+            currentUrl = url;
             titleIndicator.textContent = title;
             gameFrame.src = url;
 
@@ -243,6 +247,13 @@
         });
 
         document.getElementById('back-btn').addEventListener('click', returnToGrid);
+
+        // Opens the game in its own tab/process, so a heavy game can't freeze the launcher
+        document.getElementById('newtab-btn').addEventListener('click', () => {
+            const url = currentUrl;
+            returnToGrid();
+            window.open(url, '_blank');
+        });
 
         // Esc returns to the launcher (only when the page itself has focus, not inside the game)
         document.addEventListener('keydown', e => {
