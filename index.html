@@ -53,11 +53,32 @@
         font-size: 14px;
         padding: 10px 30px;
     }
+
+    /* BACK ARROW ADDON */
+    .back-arrow {
+        display:inline-block;
+        padding:10px 15px;
+        margin:10px;
+        background:#151515;
+        border:2px solid #b00000;
+        border-radius:8px;
+        color:#e0e0e0;
+        font-weight:bold;
+        text-decoration:none;
+        font-size:18px;
+    }
+    .back-arrow:hover {
+        background:#1f1f1f;
+        border-color:#ff1a1a;
+    }
 </style>
 </head>
 <body>
 
 <header>russia is the italy place</header>
+
+<!-- Back arrow for launcher (optional) -->
+<a class="back-arrow" href="index.html">← Back</a>
 
 <div class="instructions">
     <!-- ===========================================================
@@ -66,12 +87,16 @@
          GitHub Pages blocks folder scanning, so add tiles manually.
 
          1. Put your playable in:
+                playables/NAME.html
+                or
                 playables/NAME/index.html
 
          2. Add a tile below:
-                <a class="tile" href="playables/NAME/index.html">NAME</a>
+                <a class="tile" href="playables/NAME.html">NAME</a>
 
-         3. Done. No JS. No caching. No complexity.
+         3. Inside each playable, add:
+                <a class="back-arrow" href="../index.html">← Back</a>
+
         =========================================================== -->
 </div>
 
@@ -82,9 +107,8 @@
     <a class="tile" href="playables/stickmanhook/index.html">stickmanhook</a>
 
     <!-- ADD YOUR OWN BELOW -->
-    <!-- <a class="tile" href="playables/FOLDERNAME/index.html">NAME</a> -->
- <a class="tile" href="playables/googlebaseball.html">Google Baseball</a>
-    
+    <a class="tile" href="playables/googlebaseball.html">Google Baseball</a>
+
 </div>
 
 </body>
