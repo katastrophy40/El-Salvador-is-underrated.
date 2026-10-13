@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Playables Launcher</title>
+
+<!-- ============================
+     STYLE — Industrial Black + Red
+     ============================ -->
+<style>
+    body {
+        margin: 0;
+        background: #0a0a0a;
+        color: #e0e0e0;
+        font-family: Arial, sans-serif;
+    }
+
+    header {
+        padding: 20px;
+        text-align: center;
+        background: #111;
+        border-bottom: 3px solid #b00000;
+        font-size: 32px;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    #grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 30px;
+    }
+
+    .tile {
+        background: #151515;
+        border: 2px solid #b00000;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .tile:hover {
+        background: #1f1f1f;
+        transform: scale(1.05);
+        border-color: #ff1a1a;
+    }
+</style>
+</head>
+<body>
+
+<header>PLAYABLES</header>
+
+<div id="grid">Loading playables…</div>
+
+<!-- ============================
+     SCRIPT — Auto Scan Playables
+     ============================ -->
+<script>
+/*
+===========================================================
+ HOW TO ADD NEW PLAYABLES
+ ----------------------------------------------------------
+ 1. Create a folder inside /playables/
+      Example:
+        playables/mygame/
+        playables/runner/
+        playables/puzzle/
+
+ 2. Inside each folder, include:
+      - index.html  (REQUIRED)
+      - optional: style.css, script.js, assets/
+
+ 3. That's it. The launcher auto-detects the folder and
+    creates a tile for it automatically.
+
+===========================================================
+*/
+
+const PLAYABLES_PATH = "playables/";
+
+async function loadPlayables() {
+    try {
+        // Fetch directory listing (works on GitHub Pages, Apache, Nginx)
+        const response = await fetch(PLAYABLES_PATH);
+        const html = await response.text();
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        // Extract folder names (ignore files)
+        const folders = [...doc.querySelectorAll("a")]
+            .map(a => a.getAttribute("href"))
+            .filter(h => h && !h.includes(".") && h !== "../");
+
+        const grid = document.getElementById("grid");
+        grid.innerHTML = "";
+
+        folders.forEach(folder => {
+            const cleanName = folder.replace("/", "");
+
+            const tile = document.createElement("div");
+            tile.className = "tile";
+            tile.innerText = cleanName;
+
+            tile.onclick = () => {
+                window.location.href = `${PLAYABLES_PATH}${folder}index.html`;
+            };
+
+            grid.appendChild(tile);
+        });
+
+    } catch (err) {
+        document.getElementById("grid").innerText =
+            "Failed to load playables. Ensure directory listing is enabled.";
+        console.error(err);
+    }
+}
+
+loadPlayables();
+</script>
+
+</body>
+</html>
