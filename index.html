@@ -40,6 +40,9 @@
             display: flex;
             flex-direction: column;
             width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-sizing: border-box;
         }
 
         /* Grid view layout */
@@ -83,7 +86,7 @@
             display: none;
             flex-direction: column;
             flex: 1;
-            padding: 20px 30px;
+            padding: 20px 30px 40px 30px;
             width: 100%;
             box-sizing: border-box;
         }
@@ -121,18 +124,32 @@
             color: #e0e0e0;
         }
 
+        /* Proper proportional 16:9 responsive wrapper with max constraints */
+        .iframe-container-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
         .iframe-wrapper {
             position: relative;
             width: 100%;
-            flex: 1;
-            min-height: 650px;
+            max-width: 1100px;
+            aspect-ratio: 16 / 10;
+            max-height: 75vh;
             background: #111;
             border: 2px solid #b00000;
             border-radius: 8px;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         }
 
         iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
@@ -155,7 +172,7 @@
 
     <div class="instructions">
         Click any game tile below to load and play directly inside the page without new tabs.<br>
-        Optimized for Chromebooks and all devices.
+        Optimized for Chromebooks and all devices with fixed proportions.
     </div>
 
     <div class="view-container">
@@ -172,8 +189,10 @@
                 <button class="back-btn" onclick="returnToGrid()">← Back to Launcher</button>
                 <div class="game-title-indicator" id="active-game-title">Game Loading...</div>
             </div>
-            <div class="iframe-wrapper">
-                <iframe id="game-frame" src="" allowfullscreen sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms"></iframe>
+            <div class="iframe-container-wrapper">
+                <div class="iframe-wrapper">
+                    <iframe id="game-frame" src="" allowfullscreen sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms"></iframe>
+                </div>
             </div>
         </div>
     </div>
@@ -211,7 +230,7 @@
     </script>
 
     <footer>
-        russia is the italy place &bull; Flat Dark In-Page Frame Edition
+        russia is the italy place &bull; Proportional In-Page Frame Edition
     </footer>
 
 </body>
