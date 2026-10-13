@@ -10,9 +10,6 @@
         background: #0a0a0a;
         color: #e0e0e0;
         font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
     }
 
     header {
@@ -30,8 +27,6 @@
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 20px;
         padding: 30px;
-        flex: 1;
-        overflow-y: auto;
     }
 
     .tile {
@@ -45,7 +40,6 @@
         text-decoration: none;
         color: #e0e0e0;
         transition: 0.2s;
-        cursor: pointer;
     }
 
     .tile:hover {
@@ -54,31 +48,26 @@
         border-color: #ff1a1a;
     }
 
-    /* iframe container */
-    #player {
-        display: none;
-        flex: 1;
-        border: none;
-        width: 100%;
-        background: #000;
+    .instructions {
+        color: #888;
+        font-size: 14px;
+        padding: 10px 30px;
     }
 
-    /* back arrow */
-    #back {
-        display: none;
-        padding: 10px 15px;
-        background: #151515;
-        border: 2px solid #b00000;
-        border-radius: 8px;
-        color: #e0e0e0;
-        font-weight: bold;
-        font-size: 18px;
-        text-decoration: none;
-        margin: 10px;
-        width: fit-content;
-        cursor: pointer;
+    /* Back arrow style */
+    .back-arrow {
+        display:inline-block;
+        padding:10px 15px;
+        margin:10px;
+        background:#151515;
+        border:2px solid #b00000;
+        border-radius:8px;
+        color:#e0e0e0;
+        font-weight:bold;
+        text-decoration:none;
+        font-size:18px;
     }
-    #back:hover {
+    .back-arrow:hover {
         background:#1f1f1f;
         border-color:#ff1a1a;
     }
@@ -88,35 +77,21 @@
 
 <header>russia is the italy place</header>
 
-<!-- Back button -->
-<div id="back" onclick="exitGame()">← Back</div>
-
-<!-- Game selection -->
-<div id="grid">
-    <a class="tile" onclick="play('playables/googlebaseball.html')">Google Baseball</a>
-    <a class="tile" onclick="play('playables/stickmanhook/index.html')">stickmanhook</a>
+<div class="instructions">
+    Click a game to open it in a new tab.  
+    Use the ← Back button in the launcher to return here.
 </div>
 
-<!-- Game iframe -->
-<iframe id="player"></iframe>
+<!-- Back arrow for launcher -->
+<a class="back-arrow" href="index.html">← Back</a>
 
-<script>
-function play(url) {
-    document.getElementById("grid").style.display = "none";
-    document.getElementById("back").style.display = "inline-block";
-    const frame = document.getElementById("player");
-    frame.src = url;
-    frame.style.display = "block";
-}
+<div id="grid">
 
-function exitGame() {
-    const frame = document.getElementById("player");
-    frame.src = "";
-    frame.style.display = "none";
-    document.getElementById("back").style.display = "none";
-    document.getElementById("grid").style.display = "grid";
-}
-</script>
+    <!-- SAMPLE PLAYABLES -->
+    <a class="tile" href="playables/googlebaseball.html" target="_blank">Google Baseball</a>
+    <a class="tile" href="playables/stickmanhook/index.html" target="_blank">stickmanhook</a>
+
+</div>
 
 </body>
 </html>
