@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Playables Launcher</title>
+<title>stop asking me to fix this</title>
 
 <style>
     body {
@@ -35,12 +35,11 @@
         border-radius: 10px;
         padding: 20px;
         text-align: center;
-        cursor: pointer;
-        transition: 0.2s;
         font-size: 20px;
         font-weight: bold;
         text-decoration: none;
         color: #e0e0e0;
+        transition: 0.2s;
     }
 
     .tile:hover {
@@ -48,36 +47,45 @@
         transform: scale(1.05);
         border-color: #ff1a1a;
     }
+
+    .instructions {
+        color: #888;
+        font-size: 14px;
+        padding: 10px 30px;
+    }
 </style>
 </head>
 <body>
 
-<header>PLAYABLES</header>
+<header>russia is the italy place</header>
+
+<div class="instructions">
+    <!-- ===========================================================
+         HOW TO ADD NEW PLAYABLES (HTML ONLY)
+         -----------------------------------------------------------
+         GitHub Pages blocks folder scanning, so add tiles manually.
+
+         1. Put your playable in:
+                playables/NAME/index.html
+
+         2. Add a tile below:
+                <a class="tile" href="playables/NAME/index.html">NAME</a>
+
+         3. Done. No JS. No caching. No complexity.
+        =========================================================== -->
+</div>
 
 <div id="grid">
 
-    <!-- ===========================================================
-         HOW TO ADD NEW PLAYABLES
-         -----------------------------------------------------------
-         GitHub Pages blocks folder scanning, so list your playables
-         manually here. Offline caching will be automatic.
-
-         Example:
-         <a class="tile" href="playables/stacktris/index.html">stacktris</a>
-         <a class="tile" href="playables/stickmanhook/index.html">stickmanhook</a>
-        =========================================================== -->
-
-    <!-- Add your playables here -->
-    <a class="tile" href="playables/stacktris/index.html">stacktris</a>
+    <!-- SAMPLE PLAYABLES -->
+    <a class="tile" href="playables/googlebaseball.html">Google Baseball</a>
     <a class="tile" href="playables/stickmanhook/index.html">stickmanhook</a>
 
+    <!-- ADD YOUR OWN BELOW -->
+    <!-- <a class="tile" href="playables/FOLDERNAME/index.html">NAME</a> -->
+ <a class="tile" href="playables/googlebaseball.html">Google Baseball</a>
+    
 </div>
-
-<script>
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(console.error);
-}
-</script>
 
 </body>
 </html>
