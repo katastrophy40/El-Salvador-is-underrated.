@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>stop asking me to fix this</title>
+<title>russia is the italy place</title>
 
 <style>
     body {
@@ -56,20 +56,21 @@
 
     /* Back arrow style */
     .back-arrow {
-        display:inline-block;
-        padding:10px 15px;
-        margin:10px;
-        background:#151515;
-        border:2px solid #b00000;
-        border-radius:8px;
-        color:#e0e0e0;
-        font-weight:bold;
-        text-decoration:none;
-        font-size:18px;
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 10px;
+        background: #151515;
+        border: 2px solid #b00000;
+        border-radius: 8px;
+        color: #e0e0e0;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 18px;
+        cursor: pointer;
     }
     .back-arrow:hover {
-        background:#1f1f1f;
-        border-color:#ff1a1a;
+        background: #1f1f1f;
+        border-color: #ff1a1a;
     }
 </style>
 </head>
@@ -82,14 +83,14 @@
     Use the ← Back button in the launcher to return here.
 </div>
 
-<!-- Back arrow for launcher -->
-<a class="back-arrow" href="index.html">← Back</a>
+<!-- Back arrow using history.back() so it works regardless of folder depth -->
+<a class="back-arrow" href="javascript:history.back()">← Back</a>
 
 <div id="grid">
 
     <!-- SAMPLE PLAYABLES -->
-    <a class="tile" href="playables/googlebaseball.html" target="_blank">Google Baseball</a>
-    <a class="tile" href="playables/stickmanhook/index.html" target="_blank">stickmanhook</a>
+    <a class="tile" href="playables/googlebaseball.html" target="_blank" rel="noopener">Google Baseball</a>
+    <a class="tile" href="playables/stickmanhook/index.html" target="_blank" rel="noopener">stickmanhook</a>
 
 </div>
 
