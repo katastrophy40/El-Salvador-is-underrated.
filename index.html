@@ -10,6 +10,9 @@
         background: #0a0a0a;
         color: #e0e0e0;
         font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
     }
 
     header {
@@ -27,6 +30,8 @@
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 20px;
         padding: 30px;
+        flex: 1;
+        overflow-y: auto;
     }
 
     .tile {
@@ -40,6 +45,7 @@
         text-decoration: none;
         color: #e0e0e0;
         transition: 0.2s;
+        cursor: pointer;
     }
 
     .tile:hover {
@@ -48,26 +54,31 @@
         border-color: #ff1a1a;
     }
 
-    .instructions {
-        color: #888;
-        font-size: 14px;
-        padding: 10px 30px;
+    /* iframe container */
+    #player {
+        display: none;
+        flex: 1;
+        border: none;
+        width: 100%;
+        background: #000;
     }
 
-    /* BACK ARROW ADDON */
-    .back-arrow {
-        display:inline-block;
-        padding:10px 15px;
-        margin:10px;
-        background:#151515;
-        border:2px solid #b00000;
-        border-radius:8px;
-        color:#e0e0e0;
-        font-weight:bold;
-        text-decoration:none;
-        font-size:18px;
+    /* back arrow */
+    #back {
+        display: none;
+        padding: 10px 15px;
+        background: #151515;
+        border: 2px solid #b00000;
+        border-radius: 8px;
+        color: #e0e0e0;
+        font-weight: bold;
+        font-size: 18px;
+        text-decoration: none;
+        margin: 10px;
+        width: fit-content;
+        cursor: pointer;
     }
-    .back-arrow:hover {
+    #back:hover {
         background:#1f1f1f;
         border-color:#ff1a1a;
     }
@@ -77,39 +88,35 @@
 
 <header>russia is the italy place</header>
 
-<!-- Back arrow for launcher (optional) -->
-<a class="back-arrow" href="index.html">← Back</a>
+<!-- Back button -->
+<div id="back" onclick="exitGame()">← Back</div>
 
-<div class="instructions">
-    <!-- ===========================================================
-         HOW TO ADD NEW PLAYABLES (HTML ONLY)
-         -----------------------------------------------------------
-         GitHub Pages blocks folder scanning, so add tiles manually.
-
-         1. Put your playable in:
-                playables/NAME.html
-                or
-                playables/NAME/index.html
-
-         2. Add a tile below:
-                <a class="tile" href="playables/NAME.html">NAME</a>
-
-         3. Inside each playable, add:
-                <a class="back-arrow" href="../index.html">← Back</a>
-
-        =========================================================== -->
-</div>
-
+<!-- Game selection -->
 <div id="grid">
-
-    <!-- SAMPLE PLAYABLES -->
-    <a class="tile" href="playables/googlebaseball.html">Google Baseball</a>
-    <a class="tile" href="playables/stickmanhook/index.html">stickmanhook</a>
-
-    <!-- ADD YOUR OWN BELOW -->
-    <a class="tile" href="playables/googlebaseball.html">Google Baseball</a>
-
+    <a class="tile" onclick="play('playables/googlebaseball.html')">Google Baseball</a>
+    <a class="tile" onclick="play('playables/stickmanhook/index.html')">stickmanhook</a>
 </div>
+
+<!-- Game iframe -->
+<iframe id="player"></iframe>
+
+<script>
+function play(url) {
+    document.getElementById("grid").style.display = "none";
+    document.getElementById("back").style.display = "inline-block";
+    const frame = document.getElementById("player");
+    frame.src = url;
+    frame.style.display = "block";
+}
+
+function exitGame() {
+    const frame = document.getElementById("player");
+    frame.src = "";
+    frame.style.display = "none";
+    document.getElementById("back").style.display = "none";
+    document.getElementById("grid").style.display = "grid";
+}
+</script>
 
 </body>
 </html>
