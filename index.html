@@ -1,158 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fast HTML Loader</title>
-<style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%}
-body{
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  font-family:Arial,sans-serif;
-}
-#toolbar{
-  height:42px;
-  min-height:42px;
-  background:#222;
-  color:white;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:0 10px;
-}
-.btn-drive {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #555;
-  border-radius: 4px;
-  padding: 4px 10px;
-  font-size: 13px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.2s, border-color 0.2s;
-  white-space: nowrap;
-}
-.btn-drive:hover {
-  background-color: #444;
-  border-color: #777;
-}
-.btn-help {
-  background-color: #2a2a2a;
-  border: 1px solid #444;
-  color: #aaa;
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
-  font-size: 12px;
-  font-weight: bold;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-help:hover {
-  background-color: #444;
-  color: #fff;
-  border-color: #666;
-}
-.drive-icon {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fast HTML Loader</title>
 
-/* Modal Overlay Styles */
-#helpModal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-}
-.modal-content {
-  background: #222;
-  color: #fff;
-  padding: 24px;
-  border-radius: 8px;
-  max-width: 440px;
-  width: 90%;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  border: 1px solid #444;
-  font-family: Arial, sans-serif;
-}
-.modal-content h3 {
-  margin-top: 0;
-  color: #fff;
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-.modal-content h4 {
-  margin: 14px 0 6px 0;
-  color: #4285f4;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.modal-content ol {
-  padding-left: 20px;
-  line-height: 1.5;
-  font-size: 13px;
-  color: #ccc;
-  margin-bottom: 10px;
-  margin-top: 0;
-}
-.modal-content li {
-  margin-bottom: 5px;
-}
-.modal-content strong {
-  color: #fff;
-}
-.modal-close {
-  background: #4285f4;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13px;
-  float: right;
-  margin-top: 8px;
-  transition: background 0.2s;
-}
-.modal-close:hover {
-  background: #3367d6;
-}
+  <!-- Add your website tab icon (favicon) here -->
+  <link rel="icon" type="image/x-icon" href="favicon.png">
 
-#preview{
-  width:100%;
-  height:calc(100vh - 42px);
-  border:none;
-  background:#fff;
-}
-</style>
+  <style>
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%}
+  body{
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+  }
+  #toolbar{
+    height:42px;
+    min-height:42px;
+    background:#222;
+    color:white;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 10px;
+  }
+  .btn-drive {
+    display: inline-flex;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .btn-drive:hover {
+    background-color: #444;
+    border-color: #777;
+  }
+  .btn-help {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    color: #aaa;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-help:hover {
+    background-color: #444;
+    color: #fff;
+    border-color: #666;
+  }
+
+  /* Modal Overlay Styles */
+  #helpModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-content {
+    background: #222;
+    color: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    max-width: 440px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    border: 1px solid #444;
+    font-family: Arial, sans-serif;
+  }
+  .modal-content h3 {
+    margin-top: 0;
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .modal-content h4 {
+    margin: 14px 0 6px 0;
+    color: #4285f4;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .modal-content ol {
+    padding-left: 20px;
+    line-height: 1.5;
+    font-size: 13px;
+    color: #ccc;
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+  .modal-content li {
+    margin-bottom: 5px;
+  }
+  .modal-content strong {
+    color: #fff;
+  }
+  .modal-close {
+    background: #4285f4;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    float: right;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+  .modal-close:hover {
+    background: #3367d6;
+  }
+
+  #preview{
+    width:100%;
+    height:calc(100vh - 42px);
+    border:none;
+    background:#fff;
+  }
+  </style>
 </head>
 <body>
 
 <div id="toolbar">
-  <!-- Instant Google Drive Folder Download Button -->
+  <!-- Instant Google Drive Folder Download Button (No Icon) -->
   <a href="YOUR_GOOGLE_DRIVE_FOLDER_LINK_HERE" id="downloadFolderBtn" class="btn-drive" title="Download Google Drive Folder">
-      <path fill="#FFC107" d="M6.6 66.85l25.3-43.8 28.3 48.9H12.2z"/>
-      <path fill="#0066DA" d="M43.65 0L87.3 75.6H57.2L28.65 25.8z"/>
-      <path fill="#00AC47" d="M73.55 78.8H13.75L0 55l28.65-49.6h29.8z"/>
-      <path fill="#0066DA" d="M28.65 25.8L13.75 51.6 0 55l28.65-49.6z"/>
-    </svg>
     Download
   </a>
 
