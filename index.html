@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Katastrophy Loader</title>
+  <title>Fast HTML Loader</title>
 
   <!-- Add your website tab icon (favicon) here -->
-  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <style>
   *{box-sizing:border-box}
@@ -16,54 +16,117 @@
     flex-direction:column;
     overflow:hidden;
     font-family:Arial,sans-serif;
+    /* Rich dark background with a smooth drifting color-wave animation */
+    background-color: #060608;
+    background-image: linear-gradient(120deg, #060608 0%, #1f0408 35%, #0d0103 70%, #060608 100%);
+    background-size: 300% 300%;
+    animation: waveDrift 16s ease infinite;
   }
+
+  @keyframes waveDrift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
   #toolbar{
-    height:42px;
-    min-height:42px;
-    background:#222;
+    height:46px;
+    min-height:46px;
+    background: linear-gradient(90deg, #121216, #1c070a, #121216);
+    background-size: 200% 100%;
+    animation: toolbarShift 12s ease infinite;
     color:white;
     display:flex;
     align-items:center;
-    gap:10px;
-    padding:0 10px;
+    gap:12px;
+    padding:0 12px;
+    border-bottom: 2px solid #91101e;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 2px 10px rgba(145, 16, 30, 0.3);
+    z-index: 10;
   }
+
+  @keyframes toolbarShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
   .btn-drive {
     display: inline-flex;
     align-items: center;
-    background-color: #333;
+    background: linear-gradient(180deg, #1a1a20 0%, #101014 100%);
     color: #fff;
-    border: 1px solid #555;
-    border-radius: 4px;
-    padding: 4px 10px;
+    border: 1px solid #70101a;
+    border-radius: 5px;
+    padding: 5px 12px;
     font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
     text-decoration: none;
-    transition: background 0.2s, border-color 0.2s;
+    transition: all 0.25s ease;
     white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
   }
   .btn-drive:hover {
-    background-color: #444;
-    border-color: #777;
+    background: linear-gradient(180deg, #8a101f 0%, #520b14 100%);
+    border-color: #ff2a4b;
+    box-shadow: 0 0 10px rgba(255, 42, 75, 0.4);
+    color: #fff;
   }
+  
   .btn-help {
-    background-color: #2a2a2a;
-    border: 1px solid #444;
-    color: #aaa;
+    background: linear-gradient(180deg, #1a1a20 0%, #101014 100%);
+    border: 1px solid #70101a;
+    color: #ddd;
     border-radius: 50%;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     font-size: 12px;
     font-weight: bold;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.25s ease;
   }
   .btn-help:hover {
-    background-color: #444;
+    background: #91101e;
     color: #fff;
-    border-color: #666;
+    border-color: #ff2a4b;
+    box-shadow: 0 0 10px rgba(255, 42, 75, 0.4);
+  }
+
+  /* Balanced, less-red File Input Styling */
+  #fileInput {
+    color: #bbb;
+    font-size: 12px;
+    background: linear-gradient(180deg, #16161c 0%, #0d0d12 100%);
+    border: 1px solid #333340;
+    border-radius: 5px;
+    padding: 3px 6px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  }
+  #fileInput:hover {
+    border-color: #70101a;
+    box-shadow: 0 0 8px rgba(112, 16, 26, 0.3);
+  }
+  #fileInput::file-selector-button {
+    background: linear-gradient(180deg, #22222b 0%, #14141a 100%);
+    color: #eee;
+    border: 1px solid #444455;
+    padding: 4px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  #fileInput::file-selector-button:hover {
+    background: #2f2f3d;
+    border-color: #8888aa;
+    color: #fff;
   }
 
   /* Modal Overlay Styles */
@@ -74,34 +137,37 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
     z-index: 1000;
     align-items: center;
     justify-content: center;
   }
   .modal-content {
-    background: #222;
+    background: #0d0d12;
     color: #fff;
     padding: 24px;
-    border-radius: 8px;
+    border-radius: 10px;
     max-width: 440px;
     width: 90%;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    border: 1px solid #444;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 20px rgba(145, 16, 30, 0.3);
+    border: 1px solid #70101a;
     font-family: Arial, sans-serif;
   }
   .modal-content h3 {
     margin-top: 0;
     color: #fff;
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 19px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #262630;
+    padding-bottom: 8px;
   }
   .modal-content h4 {
     margin: 14px 0 6px 0;
-    color: #4285f4;
+    color: #ff3344;
     font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
   }
   .modal-content ol {
     padding-left: 20px;
@@ -112,32 +178,34 @@
     margin-top: 0;
   }
   .modal-content li {
-    margin-bottom: 5px;
+    margin-bottom: 6px;
   }
   .modal-content strong {
     color: #fff;
   }
   .modal-close {
-    background: #4285f4;
+    background: linear-gradient(180deg, #c71c2e 0%, #800e1b 100%);
     color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
+    border: 1px solid #ff2a4b;
+    padding: 8px 18px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 13px;
+    font-weight: bold;
     float: right;
-    margin-top: 8px;
-    transition: background 0.2s;
+    margin-top: 10px;
+    transition: all 0.2s;
   }
   .modal-close:hover {
-    background: #3367d6;
+    background: #e62e43;
+    box-shadow: 0 0 12px rgba(230, 46, 67, 0.5);
   }
 
   #preview{
     width:100%;
-    height:calc(100vh - 42px);
+    height:calc(100vh - 46px);
     border:none;
-    background:#fff;
+    background: transparent;
   }
   </style>
 </head>
@@ -152,7 +220,7 @@
   <!-- Help / Instructions Button -->
   <button type="button" id="helpBtn" class="btn-help" title="How to download & load">?</button>
 
-  <span style="color:#555">|</span>
+  <span style="color:rgba(255,255,255,0.2)">|</span>
 
   <input type="file" id="fileInput" accept=".html,.htm">
 </div>
