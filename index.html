@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fast HTML Loader</title>
+  <title>Katastrophy Loader</title>
 
   <!-- Add your website tab icon (favicon) here -->
-  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link rel="icon" type="image/png" href="favicon.png">
 
   <style>
   *{box-sizing:border-box}
@@ -16,14 +16,15 @@
     flex-direction:column;
     overflow:hidden;
     font-family:Arial,sans-serif;
-    /* Rich dark background with a smooth drifting color-wave animation */
+    /* Deep immersive dark background with a slow shifting ambient glow */
     background-color: #060608;
-    background-image: linear-gradient(120deg, #060608 0%, #1f0408 35%, #0d0103 70%, #060608 100%);
-    background-size: 300% 300%;
-    animation: waveDrift 16s ease infinite;
+    background-image: radial-gradient(circle at 50% 20%, rgba(35, 4, 10, 0.6) 0%, rgba(6, 6, 8, 1) 70%),
+                      linear-gradient(135deg, #060608 0%, #170307 50%, #060608 100%);
+    background-size: 200% 200%;
+    animation: ambientShift 20s ease infinite;
   }
 
-  @keyframes waveDrift {
+  @keyframes ambientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
@@ -96,7 +97,7 @@
     box-shadow: 0 0 10px rgba(255, 42, 75, 0.4);
   }
 
-  /* Balanced, less-red File Input Styling */
+  /* Balanced File Input Styling */
   #fileInput {
     color: #bbb;
     font-size: 12px;
@@ -251,7 +252,7 @@
   </div>
 </div>
 
-<iframe id="preview" sandbox="allow-scripts allow-forms allow-modals allow-popups allow-same-origin"></iframe>
+<iframe id="preview" sandbox="allow-scripts allow-forms allow-modals allow-popups allow-same-origin allow-pointer-lock"></iframe>
 
 <script>
 const fileInput = document.getElementById('fileInput');
