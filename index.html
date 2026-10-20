@@ -86,7 +86,7 @@ body{
   color: #fff;
   padding: 24px;
   border-radius: 8px;
-  max-width: 400px;
+  max-width: 440px;
   width: 90%;
   box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   border: 1px solid #444;
@@ -96,17 +96,25 @@ body{
   margin-top: 0;
   color: #fff;
   font-size: 18px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
+}
+.modal-content h4 {
+  margin: 14px 0 6px 0;
+  color: #4285f4;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 .modal-content ol {
   padding-left: 20px;
-  line-height: 1.6;
-  font-size: 14px;
+  line-height: 1.5;
+  font-size: 13px;
   color: #ccc;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: 0;
 }
 .modal-content li {
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 .modal-content strong {
   color: #fff;
@@ -120,6 +128,7 @@ body{
   cursor: pointer;
   font-size: 13px;
   float: right;
+  margin-top: 8px;
   transition: background 0.2s;
 }
 .modal-close:hover {
@@ -148,9 +157,9 @@ body{
   </a>
 
   <!-- Help / Instructions Button -->
-  <button type="button" id="helpBtn" class="btn-help" title="How to download">?</button>
+  <button type="button" id="helpBtn" class="btn-help" title="How to download & load">?</button>
 
-  <span style="color:#55">|</span>
+  <span style="color:#555">|</span>
 
   <input type="file" id="fileInput" accept=".html,.htm">
 </div>
@@ -158,13 +167,24 @@ body{
 <!-- Instructions Modal Popup -->
 <div id="helpModal">
   <div class="modal-content">
-    <h3>How to Download the Game</h3>
+    <h3>How to Play</h3>
+
+    <h4>1. Download the Folder</h4>
     <ol>
-      <li>Click the <strong>Folder</strong> button to open Google Drive.</li>
+      <li>Click the <strong>Download</strong> button to open Google Drive.</li>
       <li>Click the <strong>three dots</strong> next to the main folder name, then click <strong>Download</strong>.</li>
-      <li>Don't worry if it takes a bit to package.</li>
+      <li>Don't worry if it takes a bit to package into a zip file.</li>
       <li><strong>Important:</strong> Make sure you download the whole folder, <em>not</em> from inside the game folder.</li>
     </ol>
+
+    <h4>2. Extract & Load</h4>
+    <ol>
+      <li>Find the downloaded <code>.zip</code> file on your computer and <strong>Extract / Unzip</strong> it.</li>
+      <li>Click the <strong>Choose File</strong> button in the toolbar above.</li>
+      <li>Open your extracted folder and select the main <strong>.html</strong> file (usually named <code>index.html</code>).</li>
+      <li>The game will load right into your window!</li>
+    </ol>
+
     <button type="button" id="closeModalBtn" class="modal-close">Got it</button>
     <div style="clear:both"></div>
   </div>
