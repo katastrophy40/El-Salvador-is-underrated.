@@ -284,7 +284,7 @@
       color: var(--text-muted);
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
     }
 
     .modal-content ol {
@@ -413,14 +413,9 @@ const REPO_OWNER = 'katastrophy40';
 const REPO_NAME = 'html.katastrophy.net';
 const folderLink = "https://drive.google.com/drive/folders/1keTOUB0r2UwxQabkpsvovTt1eivOEYN-?usp=drive_link";
 
-// Fallback directory list for offline use
-const FALLBACK_FILES = [
-  { name: '1.12.html', path: '1.12.html' },
-  { name: 'index.html', path: 'index.html' }
-];
-
 let fetchedFiles = [];
-let activeMode = 'index'; // 'index' or 'viewer'
+let activeMode = 'index';
+const fileCache = {}; // Universal in-memory blob cache for offline capability
 
 // Set up external download link
 if (folderLink && !folderLink.includes("YOUR_FOLDER_ID_HERE")) {
@@ -462,7 +457,7 @@ function setMode(mode) {
   }
 }
 
-// Fetch Repository Files with Offline Fallback
+// Dynamically fetch and index repository files
 async function loadRepositoryDirectory() {
   try {
     const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/main?recursive=1`;
@@ -471,24 +466,41 @@ async function loadRepositoryDirectory() {
     if (!response.ok) throw new Error('Repository directory fetch failed.');
 
     const data = await response.json();
+    
     fetchedFiles = data.tree
-      .filter(item => item.type === 'blob' && (item.path.endsWith('.html') || item.path.endsWith('.htm')))
+      .filter(item => item.type === 'blob' && (item.path.endsWith('.html') || item.path.endsWith('.htm')) && item.path !== 'index.html')
       .map(item => ({
         name: item.path.split('/').pop(),
         path: item.path
       }));
 
     renderTable(fetchedFiles);
+    cacheAllFiles(fetchedFiles);
   } catch (err) {
-    console.warn('Network unavailable or fetch blocked. Loading offline fallback list.', err);
-    fetchedFiles = FALLBACK_FILES;
-    renderTable(fetchedFiles);
+    console.warn('Network unavailable during initial scan:', err);
+    fileTableBody.innerHTML = `<tr><td colspan="3" class="status-text">Offline mode active. Use the "Choose File" button above to load local files from your system.</td></tr>`;
+  }
+}
+
+// Pre-caches all discovered files into universal local memory blobs
+async function cacheAllFiles(files) {
+  for (const file of files) {
+    try {
+      const res = await fetch(file.path);
+      if (res.ok) {
+        const text = await res.text();
+        const blob = new Blob([text], { type: 'text/html' });
+        fileCache[file.path] = URL.createObjectURL(blob);
+      }
+    } catch (e) {
+      console.warn(`Cache skip for ${file.path}:`, e);
+    }
   }
 }
 
 function renderTable(files) {
   if (files.length === 0) {
-    fileTableBody.innerHTML = `<tr><td colspan="3" class="status-text">No matching HTML files found.</td></tr>`;
+    fileTableBody.innerHTML = `<tr><td colspan="3" class="status-text">No HTML files found in repository.</td></tr>`;
     return;
   }
 
@@ -503,9 +515,27 @@ function renderTable(files) {
   `).join('');
 }
 
-function launchRepoFile(filePath) {
-  previewFrame.src = filePath;
-  setMode('viewer');
+async function launchRepoFile(filePath) {
+  // Serve from local offline cache blob if available
+  if (fileCache[filePath]) {
+    previewFrame.src = fileCache[filePath];
+    setMode('viewer');
+    return;
+  }
+
+  // Fallback direct fetch if online
+  try {
+    const res = await fetch(filePath);
+    if (!res.ok) throw new Error('Fetch failed');
+    const text = await res.text();
+    const blob = new Blob([text], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    fileCache[filePath] = url;
+    previewFrame.src = url;
+    setMode('viewer');
+  } catch (e) {
+    alert('Unable to load file offline. Pick a file using "Choose File" in the top bar.');
+  }
 }
 
 function escapeHtml(str) {
