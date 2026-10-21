@@ -413,6 +413,12 @@ const REPO_OWNER = 'katastrophy40';
 const REPO_NAME = 'html.katastrophy.net';
 const folderLink = "https://drive.google.com/drive/folders/1keTOUB0r2UwxQabkpsvovTt1eivOEYN-?usp=drive_link";
 
+// Fallback directory list for offline use
+const FALLBACK_FILES = [
+  { name: '1.12.html', path: '1.12.html' },
+  { name: 'index.html', path: 'index.html' }
+];
+
 let fetchedFiles = [];
 let activeMode = 'index'; // 'index' or 'viewer'
 
@@ -456,7 +462,7 @@ function setMode(mode) {
   }
 }
 
-// Fetch Repository Files
+// Fetch Repository Files with Offline Fallback
 async function loadRepositoryDirectory() {
   try {
     const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/main?recursive=1`;
@@ -474,8 +480,9 @@ async function loadRepositoryDirectory() {
 
     renderTable(fetchedFiles);
   } catch (err) {
-    console.error(err);
-    fileTableBody.innerHTML = `<tr><td colspan="3" class="status-text">Unable to load repository directory index. Use local file loading above.</td></tr>`;
+    console.warn('Network unavailable or fetch blocked. Loading offline fallback list.', err);
+    fetchedFiles = FALLBACK_FILES;
+    renderTable(fetchedFiles);
   }
 }
 
